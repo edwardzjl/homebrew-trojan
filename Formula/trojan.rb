@@ -17,6 +17,6 @@ class Trojan < Formula
 
   service do
     run ["#{opt_bin}/trojan", "-c", "#{etc}/trojan/config.json"]
-    keep_alive true
+    keep_alive successful_exit: true
   end
 end
