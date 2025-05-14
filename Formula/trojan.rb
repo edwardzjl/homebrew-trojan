@@ -12,7 +12,13 @@ class Trojan < Formula
 
   def install
     system "sed", "-i", "", "s/server\\.json/client.json/", "CMakeLists.txt"
-    system "cmake", ".", *std_cmake_args, "-DENABLE_MYSQL=OFF"
+
+    cmake_args = %w[-DENABLE_MYSQL=OFF]
+    if OS.mac?
+      cmake_args << "-DAPPLE=ON"
+    end
+
+    system "cmake", ".", *std_cmake_args, *cmake_args
     system "make", "install"
   end
 
